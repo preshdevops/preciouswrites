@@ -1,6 +1,5 @@
-"use client";
-
 import Link from "next/link";
+import NewsletterForm from "./NewsletterForm";
 
 export default function Footer() {
   return (
@@ -37,20 +36,7 @@ export default function Footer() {
           <div>
             <h3 className="font-sans font-bold text-lg mb-4 tracking-wide uppercase text-sm">Newsletter</h3>
             <p className="font-sans text-sm mb-4 text-foreground/80">Join the weekly digest for musings on creativity.</p>
-            <form className="flex flex-col gap-2" onSubmit={(e) => e.preventDefault()}>
-              <input 
-                type="email" 
-                placeholder="Your email address" 
-                className="bg-background border border-border px-4 py-2 focus:outline-none focus:border-accent font-sans w-full"
-                required
-              />
-              <button 
-                type="submit" 
-                className="bg-primary text-background px-4 py-2 font-sans font-medium hover:bg-accent transition-colors w-full"
-              >
-                Subscribe
-              </button>
-            </form>
+            <NewsletterForm variant="footer" />
           </div>
         </div>
         

@@ -1,8 +1,7 @@
-"use client";
-
 import Link from "next/link";
 import { ArrowRight, BookOpen, Coffee, Feather } from "lucide-react";
 import PostCard from "@/components/PostCard";
+import NewsletterForm from "@/components/NewsletterForm";
 import { posts } from "@/data/posts";
 
 export default function Home() {
@@ -162,20 +161,7 @@ export default function Home() {
             <p className="font-sans text-xs text-background/80 mb-4 leading-relaxed">
               Every Sunday, I send a short letter containing creative spark prompts, recent observations, and lovely recommendations.
             </p>
-            <form className="flex flex-col gap-2" onSubmit={(e) => e.preventDefault()}>
-              <input 
-                type="email" 
-                placeholder="Enter email..." 
-                className="bg-background/10 border border-background/25 px-3 py-2 text-background placeholder-background/50 focus:outline-none focus:border-background/60 font-sans text-xs w-full"
-                required
-              />
-              <button 
-                type="submit" 
-                className="bg-background text-primary px-3 py-2 font-sans font-medium text-xs hover:bg-accent hover:text-white transition-colors w-full uppercase tracking-wider"
-              >
-                Join the List
-              </button>
-            </form>
+            <NewsletterForm variant="sidebar" />
           </div>
 
         </aside>

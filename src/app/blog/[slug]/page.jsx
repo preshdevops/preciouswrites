@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { posts } from "@/data/posts";
 import PostCard from "@/components/PostCard";
+import DOMPurify from "isomorphic-dompurify";
 
 export function generateStaticParams() {
   return posts.map((post) => ({
@@ -66,7 +67,7 @@ export default function SinglePost({ params }) {
       <div className="container mx-auto px-4 md:px-6 py-16 md:py-20 max-w-3xl">
         <div 
           className="drop-cap prose prose-lg dark:prose-invert prose-headings:font-serif prose-headings:text-primary prose-a:text-accent hover:prose-a:text-primary prose-p:font-sans prose-p:leading-relaxed prose-p:text-foreground/90 max-w-none"
-          dangerouslySetInnerHTML={{ __html: post.content }}
+          dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(post.content) }}
         />
         
         {/* Tags */}

@@ -16,15 +16,15 @@ export default function Error({ error, reset }) {
           <div className="flex justify-center mb-6 text-accent">
             <AlertTriangle size={48} />
           </div>
-          <h1 className="font-serif text-3xl font-bold text-primary mb-4">Something Went Awry</h1>
+          <h1 className="font-serif text-3xl font-bold text-primary mb-4">Something Broke</h1>
           <p className="font-sans text-sm text-foreground/80 leading-relaxed mb-8">
-            A small disturbance has occurred in the space-time flow of this page. Let's try to reset the system.
+            Something went wrong loading this page. Let's try again.
           </p>
           <button 
             onClick={() => reset()}
             className="inline-flex items-center gap-2 bg-primary text-background px-6 py-3 font-sans text-sm font-medium hover:bg-accent hover:text-white transition-all duration-300 shadow-sm cursor-pointer"
           >
-            <RotateCcw size={16} /> Reset Space-Time
+            <RotateCcw size={16} /> Try Again
           </button>
         </div>
         <div className="absolute -z-10 inset-0 border border-accent/10 translate-x-3 translate-y-3 pointer-events-none"></div>

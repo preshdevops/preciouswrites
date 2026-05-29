@@ -18,7 +18,7 @@ export default function Header() {
         {/* Desktop Navigation */}
         <nav className="hidden md:flex gap-8 items-center font-sans text-sm font-medium">
           <NextLink href="/" className="hover:text-accent transition-colors">Home</NextLink>
-          <NextLink href="/blog" className="hover:text-accent transition-colors">Journal</NextLink>
+          <NextLink href="/blog" className="hover:text-accent transition-colors">Posts</NextLink>
           <NextLink href="/about" className="hover:text-accent transition-colors">About</NextLink>
         </nav>
 
@@ -56,7 +56,7 @@ export default function Header() {
               onClick={() => setIsOpen(false)}
               className="hover:text-accent py-2 transition-colors border-b border-border/40"
             >
-              Journal
+              Posts
             </NextLink>
             <NextLink 
               href="/about" 

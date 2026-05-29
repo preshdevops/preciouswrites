@@ -27,7 +27,7 @@ export async function POST(request) {
 
     // Return success response
     return NextResponse.json(
-      { message: "Wonderful! You've been successfully subscribed to The Cozy Letter." },
+      { message: "You're in. New posts straight to your inbox." },
       { status: 200 }
     );
   } catch (error) {

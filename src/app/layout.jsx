@@ -23,8 +23,8 @@ const dancingScript = Dancing_Script({
 });
 
 export const metadata = {
-  title: "PreciousWrites | A Literary Home",
-  description: "A literary, editorial-style blog exploring writing, creativity, and the nuanced beauty of everyday life.",
+  title: "PreciousWrites | Precious Olonade",
+  description: "Thoughts on faith, football, film, tech, and life. By Precious Olonade.",
 };
 
 export default function RootLayout({ children }) {

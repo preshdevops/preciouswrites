@@ -1,7 +1,10 @@
 import db from "./db";
 
+let dbInitialised = false;
+
 // Initialize the posts table
 export async function initDB() {
+  if (dbInitialised) return;
   await db.execute(`
     CREATE TABLE IF NOT EXISTS posts (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -16,6 +19,7 @@ export async function initDB() {
       createdAt TEXT DEFAULT (datetime('now'))
     )
   `);
+  dbInitialised = true;
 }
 
 // Generate a URL-safe slug from a title

@@ -43,3 +43,6 @@ local.db
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# docs voice guide
+docs/VOICE_GUIDE.md

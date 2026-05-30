@@ -1,7 +1,8 @@
 import Link from "next/link";
-import { ArrowRight, BookOpen, Coffee, Feather } from "lucide-react";
+import { ArrowRight, BookOpen, Coffee, Feather, Music } from "lucide-react";
 import PostCard from "@/components/PostCard";
 import NewsletterForm from "@/components/NewsletterForm";
+import SpotifyWidget from "@/components/SpotifyWidget";
 import { getAllPosts } from "@/lib/posts";
 import { posts as staticPosts } from "@/data/posts";
 
@@ -180,6 +181,14 @@ export default async function Home() {
                 </li>
               ))}
             </ul>
+          </div>
+
+          {/* Spotify Currently Playing */}
+          <div>
+            <h4 className="font-serif text-lg font-bold text-primary mb-4 border-b border-border pb-2 flex items-center gap-2">
+              <Music size={18} className="text-[#1DB954]" /> Now Playing
+            </h4>
+            <SpotifyWidget />
           </div>
           
           {/* Newsletter */}

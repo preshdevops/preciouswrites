@@ -39,6 +39,7 @@ local.db
 
 # vercel
 .vercel
+package-lock.json
 
 # typescript
 *.tsbuildinfo

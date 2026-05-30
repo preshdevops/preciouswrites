@@ -51,7 +51,7 @@ export default function About() {
               Hey. My name is <strong>Precious Olonade</strong>. Final-year Computer Science student based in Osogbo.
             </p>
             <p>
-              Graphics designer, media officer, and someone who builds things on the internet. Most of my time goes into code, design, and figuring out how systems work. The rest goes to watching films, playing eFootball, and following Man United through every painful transfer window.
+              Web developer, AI Enthusiast, and someone who builds things on the internet. Most of my time goes into code and figuring out how systems work. The rest goes to watching films, playing eFootball, and following Man United through every painful transfer window.
             </p>
             
             <h2 className="text-3xl mt-12 mb-6 border-b border-border pb-4 font-serif">Faith</h2>

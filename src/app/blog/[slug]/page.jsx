@@ -106,7 +106,7 @@ export default async function SinglePost({ params }) {
           <div>
             <h3 className="font-serif text-2xl font-bold text-primary mb-2">About the Author</h3>
             <p className="font-sans text-foreground/80 leading-relaxed mb-4 text-sm">
-              Precious Olonade. Final-year CS student, graphics designer, and builder based in Osogbo, Nigeria. Writes about faith, football, film, tech, and life.
+              Precious Olonade. Final-year CS student, web developer and builder based in Osogbo, Nigeria. Writes about faith, football, film, tech, and life.
             </p>
             <Link href="/about" className="text-accent font-sans font-medium hover:text-primary transition-colors text-sm underline underline-offset-4">
               Read full bio

@@ -7,6 +7,11 @@ import { posts as staticPosts } from "@/data/posts";
 
 export const dynamic = "force-dynamic";
 
+const CURRENTLY_INTO_FALLBACK = [
+  { id: 1, label: "Breaking Bad", sublabel: "Season 4, Episode 3. Download limits." },
+  { id: 2, label: "eFootball 2024", sublabel: "Possession build-up. Always." },
+];
+
 export default async function Home() {
   let posts;
   try {
@@ -14,6 +19,17 @@ export default async function Home() {
     if (posts.length === 0) posts = staticPosts;
   } catch {
     posts = staticPosts;
+  }
+
+  let currentlyInto = CURRENTLY_INTO_FALLBACK;
+  try {
+    const { getCurrentlyInto } = await import("@/lib/currently-into");
+    const entries = await getCurrentlyInto();
+    if (entries && entries.length > 0) {
+      currentlyInto = entries;
+    }
+  } catch {
+    // fallback already set
   }
 
   const featuredPost = posts[0];
@@ -155,14 +171,14 @@ export default async function Home() {
             </h4>
             <p className="font-sans text-xs text-foreground/60 uppercase tracking-widest mb-3">RIGHT NOW</p>
             <ul className="space-y-4 font-sans text-sm">
-              <li className="flex flex-col gap-1 border-l-2 border-accent/40 pl-3">
-                <span className="font-medium text-primary">Breaking Bad</span>
-                <span className="text-xs text-foreground/60">Season 4, Episode 3. Download limits.</span>
-              </li>
-              <li className="flex flex-col gap-1 border-l-2 border-border pl-3">
-                <span className="font-medium text-primary">eFootball 2024</span>
-                <span className="text-xs text-foreground/60">Possession build-up. Always.</span>
-              </li>
+              {currentlyInto.map((item, index) => (
+                <li key={item.id || index} className={`flex flex-col gap-1 border-l-2 ${index === 0 ? 'border-accent/40' : 'border-border'} pl-3`}>
+                  <span className="font-medium text-primary">{item.label}</span>
+                  {item.sublabel && (
+                    <span className="text-xs text-foreground/60">{item.sublabel}</span>
+                  )}
+                </li>
+              ))}
             </ul>
           </div>
           

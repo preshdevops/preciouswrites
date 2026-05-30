@@ -70,7 +70,7 @@ export default function About() {
             <div className="mt-12 pt-8 border-t border-border">
               <h3 className="text-xl font-serif mb-4">Connect</h3>
               <p className="font-sans text-base">
-                You can find me on Instagram at <a href="https://instagram.com/precious_segun" target="_blank" rel="noopener noreferrer" className="text-accent underline hover:text-primary transition-colors">@precious_segun</a> or on <a href="https://x.com" target="_blank" rel="noopener noreferrer" className="text-accent underline hover:text-primary transition-colors">X</a>. 
+                You can find me on Instagram at <a href="https://instagram.com/precious_segun" target="_blank" rel="noopener noreferrer" className="text-accent underline hover:text-primary transition-colors">@precious_segun</a> or on <a href="https://x.com/preshonX" target="_blank" rel="noopener noreferrer" className="text-accent underline hover:text-primary transition-colors">X</a>. 
               </p>
               <p className="font-sans text-sm text-foreground/60 mt-4">
                 For anything else, or if you want to play a lag-free match of eFootball, reach out.

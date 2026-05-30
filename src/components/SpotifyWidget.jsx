@@ -133,13 +133,6 @@ export default function SpotifyWidget() {
           />
         ))}
       </div>
-
-      <style jsx>{`
-        @keyframes eq {
-          0%, 100% { height: 3px; }
-          50% { height: 20px; }
-        }
-      `}</style>
     </a>
   );
 }

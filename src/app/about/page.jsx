@@ -12,7 +12,7 @@ export default function About() {
         <header className="mb-16 text-center border-b border-border pb-12">
           <h1 className="font-serif text-5xl md:text-7xl font-bold text-primary mb-6">About</h1>
           <p className="font-sans text-xl text-foreground/80 italic max-w-2xl mx-auto">
-            "Sometimes, simple is better."
+            "I always win"
           </p>
         </header>
 

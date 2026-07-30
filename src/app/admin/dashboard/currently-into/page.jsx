@@ -6,6 +6,8 @@ import { ArrowLeft, Plus, Trash2, Save, LogOut } from "lucide-react";
 import { useRouter } from "next/navigation";
 import AdminGuard from "@/components/admin/AdminGuard";
 
+export const dynamic = "force-dynamic";
+
 function CurrentlyIntoContent() {
   const [entries, setEntries] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -78,20 +80,23 @@ function CurrentlyIntoContent() {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen font-sans">
       {/* Top Bar */}
-      <header className="border-b border-border bg-background/80 backdrop-blur-md sticky top-0 z-50">
+      <header className="border-b border-border/80 bg-card/80 backdrop-blur-md sticky top-0 z-50">
         <div className="container mx-auto px-4 md:px-6 h-16 flex items-center justify-between">
-          <Link href="/admin/dashboard" className="font-serif text-xl font-bold text-primary">
-            PreciousWrites <span className="font-sans text-xs text-foreground/50 font-normal ml-1">Admin</span>
+          <Link href="/admin/dashboard" className="flex items-center gap-2 font-bold text-lg text-foreground">
+            <div className="w-6 h-6 rounded-md bg-primary text-white text-[10px] font-mono flex items-center justify-center font-extrabold">
+              PW
+            </div>
+            <span>PreciousWrites <span className="font-mono text-xs text-foreground/50 font-normal">Console</span></span>
           </Link>
-          <div className="flex items-center gap-3">
-            <Link href="/" className="font-sans text-xs text-foreground/60 hover:text-primary transition-colors">
-              View Blog
+          <div className="flex items-center gap-4">
+            <Link href="/" className="font-sans text-xs font-semibold text-foreground/70 hover:text-primary transition-colors">
+              View Blog &rarr;
             </Link>
             <button
               onClick={handleLogout}
-              className="inline-flex items-center gap-1.5 font-sans text-xs text-foreground/60 hover:text-primary transition-colors cursor-pointer"
+              className="inline-flex items-center gap-1.5 font-sans text-xs font-semibold text-rose-500 hover:text-rose-600 transition-colors cursor-pointer"
             >
               <LogOut size={14} /> Logout
             </button>
@@ -99,87 +104,84 @@ function CurrentlyIntoContent() {
         </div>
       </header>
 
-      {/* Main */}
-      <div className="container mx-auto px-4 md:px-6 py-8 max-w-2xl">
-        {/* Back link */}
+      {/* Main Container */}
+      <div className="container mx-auto px-4 md:px-6 py-8 max-w-2xl space-y-6">
         <Link
           href="/admin/dashboard"
-          className="inline-flex items-center gap-2 text-foreground/60 hover:text-primary transition-colors font-sans text-sm mb-8"
+          className="inline-flex items-center gap-2 text-foreground/60 hover:text-primary transition-colors font-sans text-xs font-semibold px-3 py-1.5 rounded-full bg-muted/60 border border-border/40 w-fit"
         >
-          <ArrowLeft size={16} /> Back to Dashboard
+          <ArrowLeft size={14} /> Back to Dashboard
         </Link>
 
-        <h1 className="font-serif text-3xl font-bold text-primary mb-2">Currently Into</h1>
-        <p className="font-sans text-sm text-foreground/60 mb-8">
-          Update the &quot;Currently Into&quot; sidebar section on the homepage.
-        </p>
+        <div>
+          <h1 className="font-sans text-2xl font-bold text-foreground">Currently Into</h1>
+          <p className="font-sans text-xs text-foreground/60">
+            Update the "Currently Into" sidebar entries on the home page.
+          </p>
+        </div>
 
-        {/* Message */}
         {message && (
-          <div className="mb-6 px-4 py-3 bg-secondary/10 border border-secondary/30 font-sans text-sm text-secondary">
+          <div className="px-4 py-3 bg-emerald-500/10 border border-emerald-500/20 rounded-xl font-sans text-xs font-semibold text-emerald-600 dark:text-emerald-400">
             {message}
           </div>
         )}
 
         {loading ? (
-          <div className="text-center py-20 font-sans text-sm text-foreground/60">Loading...</div>
+          <div className="text-center py-16 font-mono text-xs text-foreground/50">Loading entries...</div>
         ) : (
-          <div className="flex flex-col gap-6">
+          <div className="space-y-4">
             {entries.map((entry, index) => (
-              <div key={index} className="border border-border bg-muted/20 p-5 flex flex-col gap-3 relative">
-                <div className="flex items-center justify-between mb-1">
-                  <span className="font-sans text-xs text-foreground/50 uppercase tracking-wider font-medium">
-                    Item {index + 1}
+              <div key={index} className="bg-card border border-border/80 rounded-2xl p-5 space-y-3 shadow-sm">
+                <div className="flex items-center justify-between">
+                  <span className="font-mono text-xs font-semibold text-primary uppercase">
+                    Item #{index + 1}
                   </span>
                   {entries.length > 1 && (
                     <button
                       onClick={() => removeEntry(index)}
-                      className="p-1 hover:bg-rose-50 dark:hover:bg-rose-950/30 rounded transition-colors cursor-pointer"
-                      title="Remove"
+                      className="p-1.5 text-foreground/50 hover:text-rose-500 hover:bg-rose-500/10 rounded-lg transition-colors cursor-pointer"
+                      title="Remove Item"
                     >
-                      <Trash2 size={14} className="text-rose-500" />
+                      <Trash2 size={14} />
                     </button>
                   )}
                 </div>
-                <div className="flex flex-col gap-1.5">
-                  <label className="font-sans text-xs font-medium text-foreground/60 uppercase tracking-wider">
-                    Label
-                  </label>
+
+                <div className="space-y-1">
+                  <label className="font-mono text-[10px] uppercase font-bold text-foreground/50">Title / Topic</label>
                   <input
                     type="text"
                     value={entry.label}
                     onChange={(e) => updateEntry(index, "label", e.target.value)}
                     placeholder="e.g. Breaking Bad"
-                    className="w-full bg-background border border-border px-4 py-3 font-sans text-sm text-foreground placeholder-foreground/30 focus:outline-none focus:border-accent transition-colors"
+                    className="w-full bg-background border border-border/80 rounded-xl px-4 py-2 font-sans text-xs text-foreground focus:outline-none focus:border-primary transition-colors"
                   />
                 </div>
-                <div className="flex flex-col gap-1.5">
-                  <label className="font-sans text-xs font-medium text-foreground/60 uppercase tracking-wider">
-                    Sublabel
-                  </label>
+
+                <div className="space-y-1">
+                  <label className="font-mono text-[10px] uppercase font-bold text-foreground/50">Subtitle / Note</label>
                   <input
                     type="text"
                     value={entry.sublabel}
                     onChange={(e) => updateEntry(index, "sublabel", e.target.value)}
-                    placeholder="e.g. Season 4, Episode 3"
-                    className="w-full bg-background border border-border px-4 py-3 font-sans text-sm text-foreground placeholder-foreground/30 focus:outline-none focus:border-accent transition-colors"
+                    placeholder="e.g. Season 4. Masterclass episode."
+                    className="w-full bg-background border border-border/80 rounded-xl px-4 py-2 font-sans text-xs text-foreground focus:outline-none focus:border-primary transition-colors"
                   />
                 </div>
               </div>
             ))}
 
-            {/* Add + Save */}
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 pt-2">
               <button
                 onClick={addEntry}
-                className="inline-flex items-center gap-2 border border-border px-4 py-2.5 font-sans text-sm hover:bg-muted transition-colors cursor-pointer"
+                className="inline-flex items-center gap-1.5 border border-border/80 px-4 py-2.5 rounded-xl font-sans text-xs font-semibold hover:bg-muted transition-colors cursor-pointer"
               >
                 <Plus size={14} /> Add Item
               </button>
               <button
                 onClick={handleSave}
                 disabled={saving}
-                className="inline-flex items-center gap-2 bg-primary text-background px-4 py-2.5 font-sans text-sm font-medium hover:bg-accent hover:text-white transition-all duration-300 disabled:opacity-50 cursor-pointer"
+                className="inline-flex items-center gap-1.5 bg-primary text-white px-4 py-2.5 rounded-xl font-sans text-xs font-semibold hover:bg-primary/90 transition-all shadow-md shadow-primary/20 disabled:opacity-50 cursor-pointer"
               >
                 <Save size={14} /> {saving ? "Saving..." : "Save Changes"}
               </button>

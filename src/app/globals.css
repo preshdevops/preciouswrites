@@ -2,14 +2,8 @@
 @plugin "@tailwindcss/typography";
 
 @theme inline {
-  --font-sans: var(--font-lora);
-  --font-serif: var(--font-playfair);
-  --font-signature: var(--font-signature);
-  
-  --color-ivory: #F5F0E8;
-  --color-espresso: #2C1810;
-  --color-rose: #C4856A;
-  --color-sage: #8A9E7B;
+  --font-sans: var(--font-jakarta);
+  --font-mono: var(--font-jetbrains);
 
   --color-background: var(--bg-color);
   --color-foreground: var(--fg-color);
@@ -18,73 +12,188 @@
   --color-accent: var(--accent-color);
   --color-muted: var(--muted-color);
   --color-border: var(--border-color);
+  --color-card: var(--card-color);
+  --color-card-hover: var(--card-hover-color);
+  --color-surface: var(--surface-color);
 }
 
-.font-signature {
-  font-family: var(--font-signature), cursive;
-}
-
-.border-double-custom {
-  border-style: double;
-  border-width: 3px;
-  border-color: var(--border-color);
-}
-
-.drop-cap::first-letter {
-  font-family: var(--font-playfair), serif;
-  font-size: 3.5rem;
-  float: left;
-  line-height: 0.9;
-  margin-right: 0.5rem;
-  margin-top: 0.2rem;
-  color: var(--accent-color);
-  font-weight: bold;
-}
-
+/* ─── Light Mode ─── */
 :root {
-  --bg-color: #F5F0E8;
-  --fg-color: #2C1810;
-  --primary-color: #2C1810;
-  --secondary-color: #8A9E7B;
-  --accent-color: #C4856A;
-  --muted-color: #e6e0d4;
-  --border-color: #d8cabd;
+  --bg-color: #F8FAFC;
+  --fg-color: #0F172A;
+  --primary-color: #6366F1;
+  --secondary-color: #8B5CF6;
+  --accent-color: #38BDF8;
+  --muted-color: #F1F5F9;
+  --border-color: #E2E8F0;
+  --card-color: #FFFFFF;
+  --card-hover-color: #F8FAFC;
+  --surface-color: #F1F5F9;
 }
 
+/* ─── Dark Mode ─── */
 .dark {
-  --bg-color: #2C1810;
-  --fg-color: #F5F0E8;
-  --primary-color: #F5F0E8;
-  --secondary-color: #8A9E7B;
-  --accent-color: #C4856A;
-  --muted-color: #402c24;
-  --border-color: #583c30;
+  --bg-color: #090D16;
+  --fg-color: #E2E8F0;
+  --primary-color: #818CF8;
+  --secondary-color: #A78BFA;
+  --accent-color: #38BDF8;
+  --muted-color: #111827;
+  --border-color: #1E293B;
+  --card-color: #111827;
+  --card-hover-color: #1E293B;
+  --surface-color: #0F172A;
 }
 
+/* ─── Base ─── */
 body {
   background-color: var(--bg-color);
   color: var(--fg-color);
-  font-family: var(--font-lora), sans-serif;
+  font-family: var(--font-jakarta), system-ui, sans-serif;
   transition: background-color 0.3s ease, color 0.3s ease;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-h1, h2, h3, h4, h5, h6, .font-serif {
-  font-family: var(--font-playfair), serif;
+/* ─── Glassmorphism ─── */
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-/* Custom editorial styles */
-.pull-quote {
-  font-family: var(--font-playfair), serif;
-  font-size: 1.5rem;
-  line-height: 1.4;
-  color: var(--accent-color);
-  border-left: 4px solid var(--accent-color);
-  padding-left: 1.5rem;
-  margin: 2rem 0;
-  font-style: italic;
+.dark .glass {
+  background: rgba(17, 24, 39, 0.6);
+  border-color: rgba(99, 102, 241, 0.08);
 }
 
+:root .glass {
+  background: rgba(255, 255, 255, 0.7);
+  border-color: rgba(226, 232, 240, 0.8);
+}
+
+/* ─── Card Glow ─── */
+.card-glow {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.card-glow::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 0.3s ease;
+}
+
+.card-glow:hover::before {
+  opacity: 0.15;
+}
+
+/* ─── Status Pulse ─── */
+@keyframes pulse-ring {
+  0% { transform: scale(0.8); opacity: 1; }
+  100% { transform: scale(2); opacity: 0; }
+}
+
+.status-pulse {
+  position: relative;
+}
+
+.status-pulse::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: currentColor;
+  animation: pulse-ring 2s ease-out infinite;
+}
+
+/* ─── Spotify Equalizer ─── */
 @keyframes eq {
   0%, 100% { height: 3px; }
-  50% { height: 20px; }
+  50% { height: 16px; }
 }
+
+/* ─── Typography for Blog Content ─── */
+.prose {
+  --tw-prose-body: var(--fg-color);
+  --tw-prose-headings: var(--fg-color);
+  --tw-prose-links: var(--primary-color);
+  --tw-prose-code: var(--primary-color);
+}
+
+.prose h1, .prose h2, .prose h3, .prose h4 {
+  font-family: var(--font-jakarta), system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+.prose code {
+  font-family: var(--font-jetbrains), monospace;
+  font-size: 0.875em;
+  background: var(--muted-color);
+  padding: 0.15em 0.4em;
+  border-radius: 0.375rem;
+  font-weight: 500;
+}
+
+.prose pre code {
+  background: transparent;
+  padding: 0;
+}
+
+.prose a {
+  text-decoration: none;
+  border-bottom: 1px solid var(--primary-color);
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.prose a:hover {
+  color: var(--accent-color);
+  border-color: var(--accent-color);
+}
+
+/* ─── Custom Scrollbar ─── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-color);
+}
+
+/* ─── Selection ─── */
+::selection {
+  background: var(--primary-color);
+  color: white;
+}
+
+/* ─── Gradient Text Utility ─── */
+.gradient-text {
+  background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─── Category Colors ─── */
+.cat-faith { --cat-color: #8B5CF6; }
+.cat-football { --cat-color: #10B981; }
+.cat-film { --cat-color: #F59E0B; }
+.cat-tech { --cat-color: #38BDF8; }
+.cat-life { --cat-color: #EC4899; }
+.cat-default { --cat-color: var(--primary-color); }

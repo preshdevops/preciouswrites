@@ -3,25 +3,22 @@ import { ArrowLeft, Compass } from "lucide-react";
 
 export default function NotFound() {
   return (
-    <div className="container mx-auto px-4 py-24 md:py-32 flex flex-col items-center justify-center text-center animate-in fade-in duration-1000">
-      <div className="relative max-w-md w-full">
-        <div className="border-double-custom p-8 md:p-12 bg-muted/20 relative z-10">
-          <div className="flex justify-center mb-6 text-accent">
-            <Compass size={48} />
-          </div>
-          <h1 className="font-serif text-5xl md:text-6xl font-bold text-primary mb-4">404</h1>
-          <h2 className="font-serif text-2xl font-semibold text-primary mb-4">Page Not Found</h2>
-          <p className="font-sans text-sm text-foreground/80 leading-relaxed mb-8">
-            This page doesn't exist. Maybe it never did.
-          </p>
-          <Link 
-            href="/" 
-            className="inline-flex items-center gap-2 bg-primary text-background px-6 py-3 font-sans text-sm font-medium hover:bg-accent hover:text-white transition-all duration-300 shadow-sm cursor-pointer"
-          >
-            <ArrowLeft size={16} /> Go Home
-          </Link>
+    <div className="container mx-auto px-4 py-24 flex flex-col items-center justify-center text-center animate-in fade-in duration-500">
+      <div className="bg-card border border-border/80 rounded-3xl p-8 md:p-12 max-w-md w-full shadow-xl space-y-6">
+        <div className="w-14 h-14 rounded-2xl bg-primary/10 text-primary flex items-center justify-center mx-auto">
+          <Compass size={28} />
         </div>
-        <div className="absolute -z-10 inset-0 border border-accent/10 translate-x-3 translate-y-3 pointer-events-none"></div>
+        <h1 className="font-sans text-5xl font-extrabold text-foreground tracking-tight">404</h1>
+        <h2 className="font-sans text-xl font-bold text-foreground">Page Not Found</h2>
+        <p className="font-sans text-xs text-foreground/70 leading-relaxed">
+          The page you are looking for doesn't exist or has been moved.
+        </p>
+        <Link 
+          href="/" 
+          className="inline-flex items-center justify-center gap-2 bg-primary text-white px-6 py-2.5 rounded-xl font-sans text-xs font-semibold hover:bg-primary/90 transition-all shadow-md shadow-primary/20 cursor-pointer w-full"
+        >
+          <ArrowLeft size={14} /> Back to Home
+        </Link>
       </div>
     </div>
   );

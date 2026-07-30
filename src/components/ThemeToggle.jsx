@@ -13,16 +13,16 @@ export default function ThemeToggle() {
   }, []);
 
   if (!mounted) {
-    return <div className="w-9 h-9" />;
+    return <div className="w-8 h-8 rounded-full bg-muted/50" />;
   }
 
   return (
     <button
       onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-      className="p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/5 transition-colors"
+      className="p-2 rounded-full bg-muted/60 hover:bg-muted text-foreground/80 hover:text-foreground border border-border/40 transition-all cursor-pointer"
       aria-label="Toggle dark mode"
     >
-      {theme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
+      {theme === "dark" ? <Sun size={17} className="text-amber-400" /> : <Moon size={17} className="text-slate-700" />}
     </button>
   );
 }

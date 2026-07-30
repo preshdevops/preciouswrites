@@ -13,35 +13,53 @@ export default function CategoryFilter({ posts }) {
       ? posts
       : posts.filter((post) => post.category === activeCategory);
 
+  const getPostCount = (cat) => {
+    if (cat === "All") return posts.length;
+    return posts.filter((p) => p.category === cat).length;
+  };
+
   return (
     <>
-      {/* Category Filters */}
-      <div className="flex flex-wrap items-center justify-center gap-4 mb-12 animate-in fade-in duration-500">
-        {categories.map((category) => (
-          <button
-            key={category}
-            onClick={() => setActiveCategory(category)}
-            className={`px-4 py-1.5 rounded-full border ${
-              category === activeCategory
-                ? "border-accent bg-accent/10 text-accent font-medium shadow-sm"
-                : "border-border text-foreground/70 hover:border-primary hover:text-primary"
-            } font-sans text-sm transition-all duration-300 cursor-pointer`}
-          >
-            {category}
-          </button>
-        ))}
+      {/* Category Filter Tabs */}
+      <div className="flex flex-wrap items-center justify-center gap-2 mb-10 p-1.5 bg-muted/40 backdrop-blur-md rounded-2xl border border-border/60 max-w-fit mx-auto">
+        {categories.map((category) => {
+          const isActive = category === activeCategory;
+          const count = getPostCount(category);
+          return (
+            <button
+              key={category}
+              onClick={() => setActiveCategory(category)}
+              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-sans font-semibold transition-all duration-200 cursor-pointer ${
+                isActive
+                  ? "bg-primary text-white shadow-md shadow-primary/20 scale-[1.02]"
+                  : "text-foreground/70 hover:text-foreground hover:bg-background/60"
+              }`}
+            >
+              <span>{category}</span>
+              <span
+                className={`px-1.5 py-0.5 rounded-full text-[10px] font-mono ${
+                  isActive
+                    ? "bg-white/20 text-white"
+                    : "bg-border/60 text-foreground/60"
+                }`}
+              >
+                {count}
+              </span>
+            </button>
+          );
+        })}
       </div>
 
       {/* Grid of posts */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredPosts.map((post) => (
           <PostCard key={post.slug} post={post} />
         ))}
       </div>
-      
+
       {filteredPosts.length === 0 && (
-        <div className="text-center py-12 font-serif text-lg text-foreground/60 italic">
-          No entries found in this category.
+        <div className="text-center py-16 bg-card border border-border rounded-2xl font-sans text-sm text-foreground/60">
+          No articles found in this category.
         </div>
       )}
     </>

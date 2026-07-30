@@ -27,8 +27,8 @@ export default function SpotifyWidget() {
 
   if (loading) {
     return (
-      <div className="flex items-center gap-3 p-4 border border-border bg-muted/20 animate-pulse">
-        <div className="w-12 h-12 rounded-full bg-border/50 shrink-0" />
+      <div className="flex items-center gap-3 p-4 rounded-xl border border-border/60 bg-card/60 animate-pulse">
+        <div className="w-12 h-12 rounded-lg bg-border/50 shrink-0" />
         <div className="flex flex-col gap-2 flex-1">
           <div className="h-2.5 w-20 bg-border/50 rounded" />
           <div className="h-3 w-32 bg-border/50 rounded" />
@@ -39,7 +39,12 @@ export default function SpotifyWidget() {
   }
 
   if (!data || (!data.title && data.message === "Spotify not configured")) {
-    return null;
+    return (
+      <div className="p-4 rounded-xl border border-border/60 bg-card/50 flex items-center gap-3 font-sans text-xs text-foreground/50">
+        <SpotifyIcon className="w-5 h-5 text-[#1DB954] shrink-0" />
+        <span>Spotify integration active. Add credentials to see live playback.</span>
+      </div>
+    );
   }
 
   const isPlaying = data.isPlaying;
@@ -50,50 +55,41 @@ export default function SpotifyWidget() {
       href={hasTrack ? data.url : "https://open.spotify.com"}
       target="_blank"
       rel="noopener noreferrer"
-      className="group flex items-center gap-3 p-4 border border-border bg-muted/20 hover:bg-muted/40 hover:border-[#1DB954]/40 transition-all duration-300 no-underline"
+      className="group flex items-center gap-3.5 p-3.5 rounded-xl border border-border/80 bg-card hover:border-[#1DB954]/50 transition-all duration-300 shadow-sm no-underline"
     >
-      {/* Album Art / Disc */}
+      {/* Album Art */}
       <div className="relative w-12 h-12 shrink-0">
         <div
-          className={`w-12 h-12 rounded-full overflow-hidden border-2 transition-colors duration-300 ${
-            isPlaying
-              ? "border-[#1DB954]/60"
-              : "border-border"
+          className={`w-12 h-12 rounded-lg overflow-hidden border transition-all duration-300 ${
+            isPlaying ? "border-[#1DB954] shadow-[0_0_12px_rgba(29,185,84,0.25)]" : "border-border/60"
           }`}
         >
           {hasTrack && data.albumArt ? (
             <img
               src={data.albumArt}
               alt={data.album || "Album art"}
-              className={`w-full h-full object-cover ${
-                isPlaying ? "animate-[spin_8s_linear_infinite]" : ""
-              }`}
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
             />
           ) : (
-            <div className="w-full h-full bg-border/50 flex items-center justify-center">
-              <SpotifyIcon className="w-5 h-5 text-foreground/40" />
+            <div className="w-full h-full bg-muted/60 flex items-center justify-center">
+              <SpotifyIcon className="w-6 h-6 text-[#1DB954]" />
             </div>
           )}
         </div>
-        {/* Disc hole */}
-        {isPlaying && (
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2.5 h-2.5 rounded-full bg-background border border-border" />
-        )}
       </div>
 
-      {/* Track Info */}
+      {/* Track Details */}
       <div className="flex flex-col gap-0.5 min-w-0 flex-1">
-        {/* Status */}
         <div className="flex items-center gap-1.5">
           <span
-            className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
+            className={`w-2 h-2 rounded-full transition-all duration-300 ${
               isPlaying
-                ? "bg-[#1DB954] shadow-[0_0_6px_#1DB954] animate-pulse"
+                ? "bg-[#1DB954] shadow-[0_0_8px_#1DB954] animate-pulse"
                 : "bg-foreground/30"
             }`}
           />
           <span
-            className={`font-sans text-[10px] uppercase tracking-widest font-semibold transition-colors ${
+            className={`font-mono text-[10px] uppercase tracking-wider font-semibold ${
               isPlaying ? "text-[#1DB954]" : "text-foreground/50"
             }`}
           >
@@ -101,23 +97,21 @@ export default function SpotifyWidget() {
           </span>
         </div>
 
-        {/* Title */}
-        <span className="font-sans text-sm font-semibold text-primary truncate group-hover:text-accent transition-colors">
+        <span className="font-sans text-sm font-bold text-foreground truncate group-hover:text-primary transition-colors">
           {hasTrack ? data.title : "Not listening"}
         </span>
 
-        {/* Artist */}
         <span className="font-sans text-xs text-foreground/60 truncate">
           {hasTrack ? data.artist : "Spotify"}
         </span>
       </div>
 
-      {/* Equalizer */}
-      <div className="flex items-end gap-[3px] h-5 shrink-0">
+      {/* Animated Audio Bars */}
+      <div className="flex items-end gap-[3px] h-4 shrink-0 px-1">
         {[0, 1, 2, 3].map((i) => (
           <span
             key={i}
-            className={`w-[3px] rounded-sm transition-all duration-300 ${
+            className={`w-[3px] rounded-full transition-all duration-300 ${
               isPlaying
                 ? "bg-[#1DB954] animate-[eq_1.2s_ease-in-out_infinite]"
                 : "bg-foreground/20 h-[3px]"

@@ -1,36 +1,137 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# PreciousWrites — Tech & Creative Journal
 
-## Getting Started
+**PreciousWrites** is a sleek, modern personal journal and blog built with **Next.js 16 (App Router)**, **React 19**, **Tailwind CSS v4**, and **Turso (LibSQL SQLite)**. It serves as the digital home of **Precious Olonade** — Computer Science student, full-stack builder, and designer — covering thoughts on **Faith**, **Football** (Man United), **Film**, **Tech**, and **Life**.
 
-First, run the development server:
+---
+
+## 🎨 Design Philosophy & Identity
+
+PreciousWrites features a high-craft, bespoke tech identity:
+- **Typography**: Clean, high-legibility UI typography powered by `Plus Jakarta Sans` for titles and prose, paired with `JetBrains Mono` for code snippets and metadata tags.
+- **Color System**: Obsidian Dark Mode (`#090D16`) with electric indigo & sky cyan accents, alongside a crisp Slate Light Mode (`#F8FAFC`).
+- **Glassmorphism & Micro-Interactions**: Subtle glass card containers, interactive search modals with `Ctrl+K` keyboard shortcuts, live status playback indicators, and category-tailored color accents (Faith: Purple, Football: Emerald, Film: Amber, Tech: Sky, Life: Pink).
+
+---
+
+## 🚀 Feature Highlights
+
+- ⚡ **Next.js 16 App Router & React 19**: Server Components, streaming, and client-side state hydration.
+- 🗄️ **Turso / LibSQL Database Integration**: Serverless edge SQLite database with fallback static posts.
+- 🎵 **Real-Time Spotify "Now Playing" Widget**: Displays live playback status, album art, and animated equalizer bars using Spotify API.
+- 🔍 **Interactive Global Search Overlay**: Fast client-side search across titles, categories, and post excerpts (`Ctrl + K` or `Cmd + K`).
+- 🏷️ **Category Filter**: Instant client-side post filtering with animated pill tabs and live article counts.
+- 🌓 **Theme Switcher**: Dark and Light mode support via `next-themes`.
+- 🔐 **Admin Dashboard & Management Console**: Protected route (`/admin/dashboard`) to compose, edit, delete, and seed database articles using SQLite or static fallback data.
+- 🛡️ **Sanitization & Security**: Markdown content rendered securely with `isomorphic-dompurify`.
+
+---
+
+## 🛠️ Tech Stack
+
+- **Framework**: Next.js 16 (App Router)
+- **Library**: React 19
+- **Styling**: Tailwind CSS v4 + `@tailwindcss/typography`
+- **Fonts**: `next/font/google` (`Plus Jakarta Sans` & `JetBrains Mono`)
+- **Database**: LibSQL / Turso (`@libsql/client`)
+- **Icons**: Lucide React
+- **Theme**: `next-themes`
+
+---
+
+## 📁 Project Structure
+
+```sh
+preciouswrites/
+├── src/
+│   ├── app/
+│   │   ├── about/              # About Precious page
+│   │   ├── admin/              # Admin login & dashboard routes
+│   │   ├── api/                # API routes (posts, spotify, admin authentication, subscribe)
+│   │   ├── blog/               # Articles index & single article page ([slug])
+│   │   ├── globals.css         # Modern design tokens, themes, & glass utilities
+│   │   ├── layout.jsx          # Root layout with fonts & theme provider
+│   │   └── page.jsx            # Bespoke homepage with hero & sidebar
+│   ├── components/
+│   │   ├── admin/              # Admin guard & post editor form
+│   │   ├── CategoryFilter.jsx  # Category pill bar & grid filter
+│   │   ├── Footer.jsx          # Modern tech footer with live status & social links
+│   │   ├── Header.jsx          # Glass navbar with search overlay & theme toggle
+│   │   ├── NewsletterForm.jsx  # Newsletter input component
+│   │   ├── PostCard.jsx        # Glass article card with category pills
+│   │   ├── SpotifyWidget.jsx   # Live Spotify playback player
+│   │   ├── ThemeProvider.jsx   # next-themes wrapper
+│   │   └── ThemeToggle.jsx     # Dark/Light mode toggle button
+│   ├── data/
+│   │   └── posts.js            # Default static posts fallback
+│   └── lib/
+│       ├── auth.js             # Admin session cookie helper
+│       ├── db.js               # LibSQL database connection client
+│       ├── posts.js            # Post retrieval & database query helpers
+│       └── spotify.js          # Spotify API OAuth token refresh & status fetcher
+├── public/                     # Static assets
+└── README.md
+```
+
+---
+
+## 🔧 Getting Started
+
+### 1. Prerequisites
+Ensure you have **Node.js (v18.17+)** installed on your system.
+
+### 2. Installation
+Clone the repository and install dependencies:
+
+```bash
+git clone https://github.com/preshdevops/preciouswrites.git
+cd preciouswrites
+npm install
+```
+
+### 3. Environment Variables
+Create a `.env.local` file in the root directory:
+
+```env
+# Admin Password
+ADMIN_PASSWORD=your_secure_admin_password
+
+# Turso DB Configuration (Optional - falls back to static data if omitted)
+TURSO_DATABASE_URL=libsql://your-database-name.turso.io
+TURSO_AUTH_TOKEN=your_turso_auth_token
+
+# Spotify API Configuration (Optional)
+SPOTIFY_CLIENT_ID=your_spotify_client_id
+SPOTIFY_CLIENT_SECRET=your_spotify_client_secret
+SPOTIFY_REFRESH_TOKEN=your_spotify_refresh_token
+```
+
+### 4. Running Locally
+Start the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser to view the app.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🧪 Build & Lint
 
-## Learn More
+To build the production bundle:
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run build
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+To run lint checks:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+npm run lint
+```
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📄 License
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Created by **Precious Olonade** &copy; 2026. All rights reserved.

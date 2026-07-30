@@ -47,43 +47,41 @@ export default function AdminLogin() {
   return (
     <div className="min-h-screen flex items-center justify-center px-4">
       <div className="w-full max-w-sm">
-        <div className="border border-border bg-muted/20 p-8 shadow-sm">
+        <div className="bg-card border border-border/80 rounded-3xl p-8 shadow-xl space-y-6">
           
           {/* Header */}
-          <div className="text-center mb-8">
-            <div className="flex justify-center mb-4">
-              <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center">
-                <Lock size={20} className="text-accent" />
-              </div>
+          <div className="text-center space-y-3">
+            <div className="w-12 h-12 rounded-2xl bg-primary/10 text-primary flex items-center justify-center mx-auto">
+              <Lock size={22} />
             </div>
-            <h1 className="font-serif text-2xl font-bold text-primary">PreciousWrites</h1>
-            <p className="font-sans text-sm text-foreground/60 mt-1">Admin Dashboard</p>
+            <h1 className="font-sans text-xl font-bold text-foreground">PreciousWrites</h1>
+            <p className="font-mono text-xs text-foreground/50">Admin Console Authentication</p>
           </div>
 
           {/* Password Input */}
-          <div className="flex flex-col gap-3">
+          <div className="space-y-3">
             <input
               type="password"
-              placeholder="Password"
+              placeholder="Enter password..."
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               onKeyDown={handleKeyDown}
               disabled={loading}
-              className="w-full bg-background border border-border px-4 py-3 font-sans text-sm text-foreground placeholder-foreground/40 focus:outline-none focus:border-accent transition-colors"
+              className="w-full bg-background border border-border/80 rounded-xl px-4 py-2.5 font-sans text-xs text-foreground placeholder-foreground/40 focus:outline-none focus:border-primary transition-colors"
               autoFocus
             />
             <button
               onClick={handleLogin}
               disabled={loading}
-              className="w-full bg-primary text-background px-4 py-3 font-sans text-sm font-medium hover:bg-accent hover:text-white transition-all duration-300 disabled:opacity-50 cursor-pointer"
+              className="w-full bg-primary text-white px-4 py-2.5 rounded-xl font-sans text-xs font-semibold hover:bg-primary/90 transition-all shadow-md shadow-primary/20 disabled:opacity-50 cursor-pointer"
             >
-              {loading ? "Logging in..." : "Log In"}
+              {loading ? "Authenticating..." : "Log In"}
             </button>
           </div>
 
           {/* Error */}
           {error && (
-            <p className="font-sans text-sm text-rose-600 dark:text-rose-400 mt-3 text-center">
+            <p className="font-sans text-xs text-rose-500 mt-2 text-center font-medium">
               {error}
             </p>
           )}

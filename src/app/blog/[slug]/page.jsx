@@ -1,9 +1,8 @@
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Clock, Calendar, Tag, User } from "lucide-react";
 import { getAllPosts, getPostBySlug } from "@/lib/posts";
 import { posts as staticPosts } from "@/data/posts";
 import PostCard from "@/components/PostCard";
-
 
 export const dynamic = "force-dynamic";
 
@@ -36,7 +35,6 @@ export default async function SinglePost({ params }) {
     allPosts = staticPosts;
   }
 
-  // Fallback to static if DB returned nothing
   if (!post) {
     post = staticPosts.find((p) => p.slug === slug);
     allPosts = allPosts?.length ? allPosts : staticPosts;
@@ -45,82 +43,99 @@ export default async function SinglePost({ params }) {
   if (!post) {
     return (
       <div className="container mx-auto px-4 py-20 text-center">
-        <h1 className="font-serif text-4xl">Post not found.</h1>
-        <Link href="/blog" className="text-accent underline mt-4 inline-block">Return to Posts</Link>
+        <h1 className="font-sans text-3xl font-bold text-foreground">Post not found.</h1>
+        <Link href="/blog" className="text-primary underline mt-4 inline-block font-sans text-sm">Return to Articles</Link>
       </div>
     );
   }
 
-  // Get 2 related posts (excluding current)
   const relatedPosts = (allPosts || []).filter(p => p.slug !== post.slug).slice(0, 2);
 
   return (
-    <article className="animate-in fade-in duration-1000">
+    <article className="animate-in fade-in duration-700">
       
-      {/* Post Header */}
-      <header className="bg-muted/30 border-b border-border py-16 md:py-24">
-        <div className="container mx-auto px-4 md:px-6 max-w-4xl text-center">
-          <Link href="/blog" className="inline-flex items-center gap-2 text-foreground/60 hover:text-primary transition-colors font-sans text-sm font-medium mb-8">
-            <ArrowLeft size={16} /> Back to Posts
+      {/* Article Header */}
+      <header className="bg-card border-b border-border/80 py-12 md:py-16">
+        <div className="container mx-auto px-4 md:px-6 max-w-4xl">
+          <Link 
+            href="/blog" 
+            className="inline-flex items-center gap-2 text-foreground/60 hover:text-primary transition-colors font-sans text-xs font-semibold mb-6 px-3 py-1.5 rounded-full bg-muted/60 border border-border/40 w-fit"
+          >
+            <ArrowLeft size={14} /> Back to Articles
           </Link>
           
-          <div className="flex items-center justify-center gap-3 text-sm text-accent font-sans font-medium tracking-widest uppercase mb-6">
-            <span>{post.category}</span>
+          <div className="flex items-center gap-3 text-xs font-mono font-semibold uppercase mb-4">
+            <span className="px-2.5 py-1 rounded-md bg-primary/10 text-primary border border-primary/20">
+              {post.category}
+            </span>
           </div>
           
-          <h1 className="font-serif text-5xl md:text-7xl font-bold leading-tight text-primary mb-8">
+          <h1 className="font-sans text-3xl sm:text-5xl font-extrabold leading-tight text-foreground mb-6">
             {post.title}
           </h1>
           
-          <div className="flex items-center justify-center gap-4 text-foreground/70 font-sans text-sm">
-            <span>By Precious</span>
+          <div className="flex flex-wrap items-center gap-4 text-foreground/60 font-sans text-xs pt-2 border-t border-border/40">
+            <span className="flex items-center gap-1.5 font-medium text-foreground">
+              <User size={14} className="text-primary" /> Precious Olonade
+            </span>
             <span>&bull;</span>
-            <span>{post.date}</span>
+            <span className="flex items-center gap-1.5">
+              <Calendar size={14} /> {post.date}
+            </span>
             <span>&bull;</span>
-            <span>{post.readingTime}</span>
+            <span className="flex items-center gap-1.5">
+              <Clock size={14} /> {post.readingTime}
+            </span>
           </div>
         </div>
       </header>
 
-      {/* Post Content */}
-      <div className="container mx-auto px-4 md:px-6 py-16 md:py-20 max-w-3xl">
+      {/* Article Content */}
+      <div className="container mx-auto px-4 md:px-6 py-12 md:py-16 max-w-3xl">
         <div 
-          className="prose prose-lg dark:prose-invert prose-headings:font-serif prose-headings:text-primary prose-a:text-accent hover:prose-a:text-primary prose-p:font-sans prose-p:leading-relaxed prose-p:text-foreground/90 max-w-none"
+          className="prose prose-lg dark:prose-invert prose-headings:font-sans prose-headings:font-bold prose-a:text-primary hover:prose-a:text-accent prose-p:font-sans prose-p:leading-relaxed prose-p:text-foreground/90 max-w-none"
           dangerouslySetInnerHTML={{ __html: post.content }}
         />
         
-        {/* Tags */}
-        <div className="mt-16 pt-8 border-t border-border flex flex-wrap gap-2">
-          {post.tags.map(tag => (
-            <span key={tag} className="px-3 py-1 bg-muted text-foreground/70 text-sm font-sans rounded-full">
-              #{tag}
+        {/* Tag Pills */}
+        {post.tags && post.tags.length > 0 && (
+          <div className="mt-12 pt-6 border-t border-border/60 flex flex-wrap items-center gap-2">
+            <span className="text-xs font-mono text-foreground/50 mr-1 flex items-center gap-1">
+              <Tag size={12} /> Tags:
             </span>
-          ))}
-        </div>
-        
-        {/* Author Bio */}
-        <div className="mt-16 bg-muted/50 border border-border p-8 flex flex-col sm:flex-row gap-8 items-center sm:items-start">
-          <div className="w-24 h-24 rounded-full bg-secondary/30 shrink-0 border border-border flex items-center justify-center overflow-hidden">
-            <span className="font-serif text-secondary text-2xl italic">P</span>
+            {post.tags.map(tag => (
+              <span key={tag} className="px-2.5 py-1 bg-muted/80 border border-border/60 text-foreground/70 text-xs font-mono rounded-lg">
+                #{tag}
+              </span>
+            ))}
           </div>
-          <div>
-            <h3 className="font-serif text-2xl font-bold text-primary mb-2">About the Author</h3>
-            <p className="font-sans text-foreground/80 leading-relaxed mb-4 text-sm">
-              Precious Olonade. Final-year CS student, web developer and builder based in Osogbo, Nigeria. Writes about faith, football, film, tech, and life.
+        )}
+        
+        {/* Author Bio Card */}
+        <div className="mt-12 bg-card border border-border/80 rounded-2xl p-6 md:p-8 flex flex-col sm:flex-row gap-6 items-center sm:items-start shadow-sm">
+          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-accent text-white font-bold font-mono text-xl flex items-center justify-center shrink-0 shadow-md">
+            PO
+          </div>
+          <div className="space-y-2">
+            <h3 className="font-sans text-lg font-bold text-foreground">Written by Precious Olonade</h3>
+            <p className="font-sans text-xs text-foreground/70 leading-relaxed">
+              Final-year CS student, web developer, and designer based in Osogbo, Nigeria. Writing about faith, football, film, software engineering, and life.
             </p>
-            <Link href="/about" className="text-accent font-sans font-medium hover:text-primary transition-colors text-sm underline underline-offset-4">
-              Read full bio
-            </Link>
+            <div className="pt-1">
+              <Link href="/about" className="text-primary font-sans font-semibold text-xs hover:text-accent transition-colors underline">
+                Learn more about Precious &rarr;
+              </Link>
+            </div>
           </div>
         </div>
       </div>
 
       {/* Related Posts */}
       {relatedPosts.length > 0 && (
-        <div className="bg-muted py-16 border-t border-border">
-          <div className="container mx-auto px-4 md:px-6 max-w-5xl">
-            <h2 className="font-serif text-3xl font-bold text-primary mb-8 text-center">Read Next</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="bg-muted/40 py-16 border-t border-border/60">
+          <div className="container mx-auto px-4 md:px-6 max-w-5xl space-y-8">
+            <h2 className="font-sans text-2xl font-bold text-foreground text-center">Read Next</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {relatedPosts.map(rp => (
                 <PostCard key={rp.slug} post={rp} />
               ))}

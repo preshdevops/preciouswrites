@@ -1,11 +1,12 @@
 import CategoryFilter from "@/components/CategoryFilter";
 import { getAllPosts } from "@/lib/posts";
 import { posts as staticPosts } from "@/data/posts";
+import { BookOpen } from "lucide-react";
 
 export const dynamic = "force-dynamic";
 
 export const metadata = {
-  title: "Posts | PreciousWrites",
+  title: "All Articles | PreciousWrites",
   description: "All posts by Precious Olonade on faith, football, film, tech, and life.",
 };
 
@@ -19,12 +20,17 @@ export default async function BlogListing() {
   }
 
   return (
-    <div className="container mx-auto px-4 md:px-6 py-12 md:py-20 animate-in fade-in duration-1000">
+    <div className="container mx-auto px-4 md:px-6 py-10 md:py-16 animate-in fade-in duration-700 max-w-6xl space-y-12">
       
-      <header className="mb-16 border-b border-border pb-12 text-center max-w-3xl mx-auto">
-        <h1 className="font-serif text-5xl md:text-6xl font-bold text-primary mb-6">All Posts</h1>
-        <p className="font-sans text-lg text-foreground/80 leading-relaxed">
-          Faith, football, film, tech, and everything in between.
+      <header className="text-center max-w-2xl mx-auto space-y-4">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/20 text-xs font-mono font-semibold uppercase tracking-wider">
+          <BookOpen size={13} /> The Archive
+        </div>
+        <h1 className="font-sans text-4xl sm:text-5xl font-extrabold text-foreground tracking-tight">
+          All <span className="gradient-text">Articles</span>
+        </h1>
+        <p className="font-sans text-base text-foreground/70 leading-relaxed">
+          Filter through thoughts on faith, football, cinema, software, and everyday reflections.
         </p>
       </header>
 

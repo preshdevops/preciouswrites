@@ -20,27 +20,29 @@ export default function CategoryFilter({ posts }) {
 
   return (
     <>
-      {/* Category Filter Tabs */}
-      <div className="flex flex-wrap items-center justify-center gap-2 mb-10 p-1.5 bg-muted/40 backdrop-blur-md rounded-2xl border border-border/60 max-w-fit mx-auto">
-        {categories.map((category) => {
+      {/* Category Index Filter Bar */}
+      <div className="flex flex-wrap items-center justify-center gap-2 mb-10 p-1.5 bg-card hairline-border rounded-2xl max-w-fit mx-auto shadow-sm font-mono">
+        {categories.map((category, index) => {
           const isActive = category === activeCategory;
           const count = getPostCount(category);
+          const idxStr = String(index).padStart(2, '0');
+
           return (
             <button
               key={category}
               onClick={() => setActiveCategory(category)}
-              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-sans font-semibold transition-all duration-200 cursor-pointer ${
+              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all duration-200 cursor-pointer ${
                 isActive
-                  ? "bg-primary text-white shadow-md shadow-primary/20 scale-[1.02]"
-                  : "text-foreground/70 hover:text-foreground hover:bg-background/60"
+                  ? "bg-primary text-black shadow-md shadow-primary/20 scale-[1.02]"
+                  : "text-foreground/70 hover:text-foreground hover:bg-muted/80"
               }`}
             >
-              <span>{category}</span>
+              <span>[{idxStr}] {category.toUpperCase()}</span>
               <span
-                className={`px-1.5 py-0.5 rounded-full text-[10px] font-mono ${
+                className={`px-1.5 py-0.5 rounded text-[10px] ${
                   isActive
-                    ? "bg-white/20 text-white"
-                    : "bg-border/60 text-foreground/60"
+                    ? "bg-black/20 text-black font-extrabold"
+                    : "bg-muted text-foreground/60"
                 }`}
               >
                 {count}
@@ -58,8 +60,8 @@ export default function CategoryFilter({ posts }) {
       </div>
 
       {filteredPosts.length === 0 && (
-        <div className="text-center py-16 bg-card border border-border rounded-2xl font-sans text-sm text-foreground/60">
-          No articles found in this category.
+        <div className="text-center py-16 bg-card hairline-border rounded-2xl font-mono text-xs text-foreground/60">
+          // NO_ENTRIES_FOUND_IN_THIS_CATEGORY
         </div>
       )}
     </>

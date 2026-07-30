@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, BookOpen, Coffee, Code2, Sparkles, Terminal, ArrowUpRight } from "lucide-react";
+import { ArrowRight, BookOpen, Coffee, Code2, Sparkles, Terminal, ArrowUpRight, Shield, Cpu, Activity } from "lucide-react";
 import PostCard from "@/components/PostCard";
 import NewsletterForm from "@/components/NewsletterForm";
 import SpotifyWidget from "@/components/SpotifyWidget";
@@ -9,8 +9,8 @@ import { posts as staticPosts } from "@/data/posts";
 export const dynamic = "force-dynamic";
 
 const CURRENTLY_INTO_FALLBACK = [
-  { id: 1, label: "Breaking Bad", sublabel: "Season 4. Pure masterclass." },
-  { id: 2, label: "eFootball 2024", sublabel: "Possession build-up setup." },
+  { id: 1, label: "Breaking Bad", sublabel: "Season 4. Pure narrative perfection." },
+  { id: 2, label: "eFootball 2024", sublabel: "Possession build-up tactic." },
 ];
 
 export default async function Home() {
@@ -37,71 +37,86 @@ export default async function Home() {
   const recentPosts = posts.slice(1, 5);
 
   return (
-    <div className="container mx-auto px-4 md:px-6 py-8 md:py-14 animate-in fade-in duration-700 space-y-16">
+    <div className="container mx-auto px-4 md:px-6 py-8 md:py-14 animate-in fade-in duration-500 space-y-16">
       
-      {/* Hero Section */}
-      <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-card via-card to-primary/5 border border-border/80 p-8 md:p-14 shadow-xl shadow-primary/5">
+      {/* Architectural Hero Banner */}
+      <section className="relative overflow-hidden rounded-3xl bespoke-card p-8 md:p-14 shadow-2xl">
         
-        {/* Subtle Background Glow Spheres */}
-        <div className="absolute top-0 right-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl -z-10 pointer-events-none" />
-        <div className="absolute bottom-0 left-1/3 w-64 h-64 bg-accent/10 rounded-full blur-3xl -z-10 pointer-events-none" />
+        {/* Subtle Hairline Grid Pattern Background */}
+        <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.05] bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none" />
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center relative z-10 max-w-6xl mx-auto">
           
-          {/* Main Hero Copy */}
-          <div className="lg:col-span-7 flex flex-col gap-5">
+          {/* Hero Left Column */}
+          <div className="lg:col-span-7 flex flex-col gap-6">
             
-            {/* Status Pill */}
-            <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-muted/80 border border-border/60 w-fit text-xs font-mono text-foreground/70">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span>CS Student & Developer &bull; Osogbo, NG</span>
+            {/* Canonical Mark Emblem */}
+            <div className="flex items-center gap-3 font-mono text-xs text-primary font-bold tracking-widest uppercase">
+              <span className="w-2.5 h-2.5 rounded-full bg-primary animate-pulse" />
+              <span>✦ PRECIOUS OLONADE // CANONICAL JOURNAL</span>
             </div>
 
-            <h1 className="font-sans text-4xl sm:text-5xl lg:text-6xl font-extrabold text-foreground leading-[1.1] tracking-tight">
+            <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground leading-[1.08] tracking-tight">
               Faith, football, film, <br />
-              <span className="gradient-text">and everything tech.</span>
+              <span className="gradient-title">and everything tech.</span>
             </h1>
 
-            <p className="font-sans text-base md:text-lg text-foreground/80 leading-relaxed max-w-xl">
-              I’m Precious Olonade — Computer Science student, graphics designer, and Man United fan. This is where I document my thoughts, builds, and passions.
+            <p className="font-sans text-base md:text-lg text-foreground/75 leading-relaxed max-w-xl">
+              Computer Science student, full-stack builder, and designer based in Osogbo, Nigeria. Documenting thoughts on software craftsmanship, faith, football, and cinema.
             </p>
 
             {/* Action Buttons */}
-            <div className="pt-2 flex flex-wrap items-center gap-3">
+            <div className="pt-2 flex flex-wrap items-center gap-3 font-mono text-xs font-bold uppercase tracking-wider">
               <Link 
                 href="/blog" 
-                className="inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-xl font-sans text-sm font-semibold hover:bg-primary/90 transition-all shadow-lg shadow-primary/25 cursor-pointer"
+                className="inline-flex items-center gap-2 bg-primary text-black px-6 py-3.5 rounded-xl hover:bg-primary/90 transition-all shadow-lg shadow-primary/20 cursor-pointer"
               >
-                Explore Articles <ArrowRight size={16} />
+                <span>// EXPLORE ARCHIVE</span> <ArrowRight size={14} />
               </Link>
               <Link 
                 href="/about" 
-                className="inline-flex items-center gap-2 bg-muted/80 hover:bg-muted text-foreground px-6 py-3 rounded-xl font-sans text-sm font-semibold border border-border/60 transition-all cursor-pointer"
+                className="inline-flex items-center gap-2 bg-muted hover:bg-card text-foreground px-6 py-3.5 rounded-xl hairline-border transition-all cursor-pointer"
               >
-                About Precious
+                <span>// ABOUT PRECIOUS</span>
               </Link>
             </div>
 
           </div>
 
-          {/* Featured Quick Code Note / Thought Box */}
-          <div className="lg:col-span-5 relative">
-            <div className="bg-surface/80 backdrop-blur-xl border border-border/80 rounded-2xl p-6 shadow-xl flex flex-col gap-4">
-              <div className="flex items-center justify-between border-b border-border/50 pb-3">
-                <div className="flex items-center gap-2 font-mono text-xs text-primary font-semibold">
-                  <Terminal size={15} /> pinned_thought.md
+          {/* System Info / Terminal Card */}
+          <div className="lg:col-span-5">
+            <div className="bg-muted/60 backdrop-blur-xl hairline-border rounded-2xl p-6 space-y-5 shadow-xl">
+              
+              <div className="flex items-center justify-between hairline-b pb-3 font-mono text-xs">
+                <div className="flex items-center gap-2 text-primary font-bold">
+                  <Terminal size={14} /> SYS_MATRIX.CONFIG
                 </div>
-                <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-emerald-500/10 text-emerald-500 font-semibold uppercase">Live</span>
+                <span className="px-2 py-0.5 rounded text-[10px] bg-primary/10 text-primary font-bold uppercase">Active</span>
               </div>
 
-              <p className="font-sans text-sm md:text-base text-foreground/90 leading-relaxed italic">
-                "Sometimes, simple is better. Clear code, honest writing, and genuine faith outweigh complex noise every time."
-              </p>
-
-              <div className="flex items-center justify-between text-xs font-mono text-foreground/50 pt-2">
-                <span>— Precious Olonade</span>
-                <span className="text-primary font-semibold">01 / 01</span>
+              <div className="space-y-3 font-mono text-xs text-foreground/80">
+                <div className="flex items-center justify-between">
+                  <span className="text-foreground/50">DISCIPLINE:</span>
+                  <span className="font-bold text-foreground">Computer Science</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-foreground/50">PRIMARY_STACK:</span>
+                  <span className="font-bold text-primary">React &bull; Next.js &bull; Turso</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-foreground/50">DESIGN_TOOLS:</span>
+                  <span className="font-bold text-foreground">Figma &bull; CorelDRAW</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-foreground/50">FOOTBALL_CLUB:</span>
+                  <span className="font-bold text-emerald-400">Man United</span>
+                </div>
               </div>
+
+              <div className="pt-2 hairline-t">
+                <SpotifyWidget />
+              </div>
+
             </div>
           </div>
 
@@ -109,22 +124,22 @@ export default async function Home() {
 
       </section>
 
-      {/* Featured Article Section */}
+      {/* Featured Article Spotlight */}
       {featuredPost && (
         <section className="max-w-6xl mx-auto">
-          <div className="flex items-center justify-between mb-6">
-            <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase tracking-wider text-primary">
-              <Sparkles size={14} /> Featured Article
+          <div className="flex items-center justify-between mb-4 font-mono text-xs font-bold uppercase tracking-widest text-primary">
+            <div className="flex items-center gap-2">
+              <Sparkles size={14} /> <span>// FEATURED SPOTLIGHT</span>
             </div>
           </div>
 
-          <div className="relative group bg-card border border-border/80 rounded-3xl p-6 md:p-10 hover:border-primary/50 transition-all duration-300 shadow-lg">
+          <div className="relative group bespoke-card rounded-3xl p-6 md:p-10 shadow-xl">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
               
               <div className="lg:col-span-8 flex flex-col gap-4">
                 <div className="flex items-center gap-3 text-xs font-mono text-foreground/60">
-                  <span className="px-2.5 py-1 rounded-md font-semibold bg-primary/10 text-primary uppercase border border-primary/20">
-                    {featuredPost.category}
+                  <span className="px-2.5 py-1 rounded-md font-bold bg-primary/10 text-primary uppercase border border-primary/20">
+                    [{featuredPost.category}]
                   </span>
                   <span>&bull;</span>
                   <span>{featuredPost.date}</span>
@@ -132,33 +147,32 @@ export default async function Home() {
                   <span>{featuredPost.readingTime}</span>
                 </div>
 
-                <h2 className="font-sans text-2xl md:text-4xl font-extrabold text-foreground group-hover:text-primary transition-colors leading-tight">
+                <h2 className="font-display text-2xl md:text-4xl font-bold text-foreground group-hover:text-primary transition-colors leading-tight">
                   <Link href={`/blog/${featuredPost.slug}`}>
                     {featuredPost.title}
                   </Link>
                 </h2>
 
-                <p className="font-sans text-base text-foreground/75 leading-relaxed">
+                <p className="font-sans text-sm md:text-base text-foreground/75 leading-relaxed">
                   {featuredPost.excerpt}
                 </p>
 
-                <div className="pt-2">
+                <div className="pt-2 font-mono text-xs font-bold">
                   <Link 
                     href={`/blog/${featuredPost.slug}`}
-                    className="inline-flex items-center gap-2 text-primary font-semibold font-sans hover:text-accent transition-colors text-sm"
+                    className="inline-flex items-center gap-2 text-primary hover:text-accent transition-colors"
                   >
-                    Read Full Article <ArrowUpRight size={16} />
+                    <span>READ_FULL_ARTICLE</span> <ArrowUpRight size={14} />
                   </Link>
                 </div>
               </div>
 
-              {/* Graphic Highlight Card */}
-              <div className="lg:col-span-4 bg-muted/50 border border-border/60 rounded-2xl p-6 flex flex-col justify-center items-center text-center gap-3">
-                <div className="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
-                  <Code2 size={24} />
+              <div className="lg:col-span-4 bg-muted/60 hairline-border rounded-2xl p-6 flex flex-col justify-center items-center text-center gap-3">
+                <div className="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center font-mono font-bold">
+                  ✦
                 </div>
-                <span className="font-mono text-xs uppercase tracking-wider text-foreground/60">Deep Dive</span>
-                <span className="font-sans text-xs text-foreground/70">Explore insights on technology, craft, and personal development.</span>
+                <span className="font-mono text-xs font-bold uppercase tracking-wider text-foreground/70">ARCHIVAL HIGHLIGHT</span>
+                <span className="font-sans text-xs text-foreground/60">Explore in-depth thoughts on tech craftsmanship and personal growth.</span>
               </div>
 
             </div>
@@ -166,19 +180,19 @@ export default async function Home() {
         </section>
       )}
 
-      {/* Main Content Layout (Grid + Sidebar) */}
+      {/* Main Articles Grid & Sidebar */}
       <section className="grid grid-cols-1 lg:grid-cols-12 gap-10 max-w-6xl mx-auto">
         
-        {/* Left Column: Recent Articles */}
+        {/* Left Column: Recent Posts */}
         <div className="lg:col-span-8 flex flex-col gap-8">
           
-          <div className="flex items-center justify-between border-b border-border/60 pb-4">
-            <h2 className="font-sans text-xl font-extrabold text-foreground">Recent Articles</h2>
+          <div className="flex items-center justify-between hairline-b pb-4">
+            <h2 className="font-display text-xl md:text-2xl font-bold text-foreground">// RECENT ENTRIES</h2>
             <Link 
               href="/blog" 
-              className="font-sans text-xs font-bold text-primary hover:text-accent transition-colors flex items-center gap-1 uppercase tracking-wider"
+              className="font-mono text-xs font-bold text-primary hover:text-accent transition-colors flex items-center gap-1.5 uppercase tracking-wider"
             >
-              All Articles <ArrowRight size={14} />
+              <span>VIEW ALL</span> <ArrowRight size={13} />
             </Link>
           </div>
 
@@ -193,44 +207,44 @@ export default async function Home() {
         {/* Right Column: Sidebar */}
         <aside className="lg:col-span-4 flex flex-col gap-6">
           
-          {/* Quick Thought */}
-          <div className="bg-card border border-border/80 rounded-2xl p-5 shadow-sm">
-            <h4 className="font-sans text-sm font-bold text-foreground mb-3 flex items-center gap-2">
-              <Coffee size={16} className="text-amber-500" /> Dev Note
+          {/* Dev Note */}
+          <div className="bespoke-card rounded-2xl p-5 shadow-sm space-y-3">
+            <h4 className="font-mono text-xs font-bold text-primary uppercase tracking-wider flex items-center gap-2">
+              <Coffee size={14} className="text-amber-500" /> // DEV_NOTE
             </h4>
-            <p className="font-sans text-xs text-foreground/80 leading-relaxed italic mb-3">
+            <p className="font-sans text-xs text-foreground/80 leading-relaxed italic">
               "Nothing can separate us from God's love. Not bad grades, not imposter syndrome, not forgotten git commits. Nothing."
             </p>
-            <div className="font-mono text-[11px] text-primary text-right font-semibold">— Precious</div>
+            <div className="font-mono text-[11px] text-primary text-right font-bold">— Precious</div>
           </div>
           
           {/* Currently Into */}
-          <div className="bg-card border border-border/80 rounded-2xl p-5 shadow-sm">
-            <h4 className="font-sans text-sm font-bold text-foreground mb-3 border-b border-border/50 pb-2 flex items-center gap-2">
-              <BookOpen size={16} className="text-primary" /> Currently Into
+          <div className="bespoke-card rounded-2xl p-5 shadow-sm space-y-3">
+            <h4 className="font-mono text-xs font-bold text-primary uppercase tracking-wider hairline-b pb-2 flex items-center gap-2">
+              <BookOpen size={14} /> // CURRENTLY_INTO
             </h4>
-            <ul className="space-y-3 font-sans text-xs">
+            <ul className="space-y-3 font-mono text-xs">
               {currentlyInto.map((item, index) => (
-                <li key={item.id || index} className="flex flex-col gap-0.5 border-l-2 border-primary/40 pl-3">
-                  <span className="font-semibold text-foreground">{item.label}</span>
+                <li key={item.id || index} className="flex flex-col gap-0.5 border-l-2 border-primary/50 pl-3">
+                  <span className="font-bold text-foreground">#{String(index + 1).padStart(2, '0')} {item.label}</span>
                   {item.sublabel && (
-                    <span className="text-[11px] text-foreground/60">{item.sublabel}</span>
+                    <span className="text-[11px] font-sans text-foreground/60">{item.sublabel}</span>
                   )}
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Spotify Currently Playing */}
+          {/* Spotify Widget */}
           <div>
             <SpotifyWidget />
           </div>
           
           {/* Newsletter Box */}
-          <div className="bg-gradient-to-br from-primary/10 to-accent/10 border border-primary/20 rounded-2xl p-5">
-            <h4 className="font-sans text-sm font-bold text-foreground mb-1">Stay in the Loop</h4>
-            <p className="font-sans text-xs text-foreground/70 mb-3 leading-relaxed">
-              New articles on tech, faith, film, and football straight to your inbox.
+          <div className="bg-muted/60 hairline-border rounded-2xl p-5 space-y-3">
+            <h4 className="font-mono text-xs font-bold text-primary uppercase tracking-wider">// DISPATCH_NEWSLETTER</h4>
+            <p className="font-sans text-xs text-foreground/70 leading-relaxed">
+              New entries delivered straight to your inbox. No spam.
             </p>
             <NewsletterForm variant="sidebar" />
           </div>

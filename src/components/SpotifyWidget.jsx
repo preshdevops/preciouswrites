@@ -27,12 +27,12 @@ export default function SpotifyWidget() {
 
   if (loading) {
     return (
-      <div className="flex items-center gap-3 p-4 rounded-xl border border-border/60 bg-card/60 animate-pulse">
-        <div className="w-12 h-12 rounded-lg bg-border/50 shrink-0" />
+      <div className="flex items-center gap-3.5 p-4 rounded-2xl bespoke-card animate-pulse">
+        <div className="w-12 h-12 rounded-xl bg-muted shrink-0" />
         <div className="flex flex-col gap-2 flex-1">
-          <div className="h-2.5 w-20 bg-border/50 rounded" />
-          <div className="h-3 w-32 bg-border/50 rounded" />
-          <div className="h-2.5 w-24 bg-border/50 rounded" />
+          <div className="h-2.5 w-20 bg-muted rounded" />
+          <div className="h-3 w-32 bg-muted rounded" />
+          <div className="h-2.5 w-24 bg-muted rounded" />
         </div>
       </div>
     );
@@ -40,9 +40,9 @@ export default function SpotifyWidget() {
 
   if (!data || (!data.title && data.message === "Spotify not configured")) {
     return (
-      <div className="p-4 rounded-xl border border-border/60 bg-card/50 flex items-center gap-3 font-sans text-xs text-foreground/50">
+      <div className="p-4 rounded-2xl bespoke-card flex items-center gap-3 font-mono text-xs text-foreground/50">
         <SpotifyIcon className="w-5 h-5 text-[#1DB954] shrink-0" />
-        <span>Spotify integration active. Add credentials to see live playback.</span>
+        <span>SPOTIFY_INTEGRATION // STANDBY</span>
       </div>
     );
   }
@@ -55,13 +55,13 @@ export default function SpotifyWidget() {
       href={hasTrack ? data.url : "https://open.spotify.com"}
       target="_blank"
       rel="noopener noreferrer"
-      className="group flex items-center gap-3.5 p-3.5 rounded-xl border border-border/80 bg-card hover:border-[#1DB954]/50 transition-all duration-300 shadow-sm no-underline"
+      className="group flex items-center gap-3.5 p-4 rounded-2xl bespoke-card hover:border-[#1DB954]/50 transition-all duration-300 no-underline"
     >
       {/* Album Art */}
       <div className="relative w-12 h-12 shrink-0">
         <div
-          className={`w-12 h-12 rounded-lg overflow-hidden border transition-all duration-300 ${
-            isPlaying ? "border-[#1DB954] shadow-[0_0_12px_rgba(29,185,84,0.25)]" : "border-border/60"
+          className={`w-12 h-12 rounded-xl overflow-hidden hairline-border transition-all duration-300 ${
+            isPlaying ? "shadow-[0_0_15px_rgba(29,185,84,0.3)] border-[#1DB954]" : ""
           }`}
         >
           {hasTrack && data.albumArt ? (
@@ -71,16 +71,16 @@ export default function SpotifyWidget() {
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
             />
           ) : (
-            <div className="w-full h-full bg-muted/60 flex items-center justify-center">
+            <div className="w-full h-full bg-muted flex items-center justify-center">
               <SpotifyIcon className="w-6 h-6 text-[#1DB954]" />
             </div>
           )}
         </div>
       </div>
 
-      {/* Track Details */}
+      {/* Track Info */}
       <div className="flex flex-col gap-0.5 min-w-0 flex-1">
-        <div className="flex items-center gap-1.5">
+        <div className="flex items-center gap-1.5 font-mono text-[10px] font-bold uppercase tracking-wider">
           <span
             className={`w-2 h-2 rounded-full transition-all duration-300 ${
               isPlaying
@@ -88,16 +88,12 @@ export default function SpotifyWidget() {
                 : "bg-foreground/30"
             }`}
           />
-          <span
-            className={`font-mono text-[10px] uppercase tracking-wider font-semibold ${
-              isPlaying ? "text-[#1DB954]" : "text-foreground/50"
-            }`}
-          >
-            {isPlaying ? "Now Playing" : hasTrack ? "Recently Played" : "Offline"}
+          <span className={isPlaying ? "text-[#1DB954]" : "text-foreground/50"}>
+            {isPlaying ? "LIVE_PLAYBACK" : hasTrack ? "RECENTLY_PLAYED" : "OFFLINE"}
           </span>
         </div>
 
-        <span className="font-sans text-sm font-bold text-foreground truncate group-hover:text-primary transition-colors">
+        <span className="font-display text-sm font-bold text-foreground truncate group-hover:text-primary transition-colors">
           {hasTrack ? data.title : "Not listening"}
         </span>
 
@@ -106,7 +102,7 @@ export default function SpotifyWidget() {
         </span>
       </div>
 
-      {/* Animated Audio Bars */}
+      {/* Audio Wave Bars */}
       <div className="flex items-end gap-[3px] h-4 shrink-0 px-1">
         {[0, 1, 2, 3].map((i) => (
           <span
@@ -133,11 +129,7 @@ export default function SpotifyWidget() {
 
 function SpotifyIcon({ className }) {
   return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="currentColor"
-      className={className}
-    >
+    <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
       <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z" />
     </svg>
   );

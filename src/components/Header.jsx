@@ -2,7 +2,7 @@
 
 import NextLink from "next/link";
 import { useState, useEffect, useRef } from "react";
-import { Search, Menu, X, Command, ArrowUpRight } from "lucide-react";
+import { Search, Menu, X, Command, ArrowUpRight, Sparkles } from "lucide-react";
 import ThemeToggle from "./ThemeToggle";
 
 export default function Header() {
@@ -12,10 +12,20 @@ export default function Header() {
   const [allPosts, setAllPosts] = useState([]);
   const [filteredPosts, setFilteredPosts] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [time, setTime] = useState("");
 
   const searchRef = useRef(null);
 
-  // Close search overlay on Escape key or clicking outside & handle shortcut
+  useEffect(() => {
+    const updateTime = () => {
+      const now = new Date();
+      setTime(now.toLocaleTimeString("en-US", { hour12: false, hour: "2-digit", minute: "2-digit", second: "2-digit" }));
+    };
+    updateTime();
+    const interval = setInterval(updateTime, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
   useEffect(() => {
     const handleKeyDown = (e) => {
       if ((e.metaKey || e.ctrlKey) && e.key === "k") {
@@ -44,7 +54,6 @@ export default function Header() {
     };
   }, [isSearchOpen]);
 
-  // Fetch posts once when search is opened
   useEffect(() => {
     if (isSearchOpen && allPosts.length === 0) {
       setLoading(true);
@@ -60,7 +69,6 @@ export default function Header() {
     }
   }, [isSearchOpen, allPosts.length]);
 
-  // Filter posts client-side by title or category
   useEffect(() => {
     if (!searchQuery.trim()) {
       setFilteredPosts([]);
@@ -78,81 +86,108 @@ export default function Header() {
   }, [searchQuery, allPosts]);
 
   return (
-    <header className="sticky top-0 z-50 w-full backdrop-blur-xl bg-background/70 border-b border-border/60 transition-all duration-300">
+    <header className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-2xl hairline-b transition-all duration-300">
+      
+      {/* Precision Top Utility Bar */}
+      <div className="hidden sm:block hairline-b py-1 px-4 bg-muted/40 font-mono text-[10px] text-foreground/50">
+        <div className="container mx-auto flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <span className="flex items-center gap-1.5 text-primary">
+              <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+              <span>SYS_VER 2.6 // OPERATIONAL</span>
+            </span>
+            <span>&bull;</span>
+            <span>OSOGBO, NG [07°46'N 04°34'E]</span>
+          </div>
+          <div className="flex items-center gap-4">
+            <span>TIME: <span className="text-foreground font-semibold">{time || "12:00:00"}</span></span>
+            <span>&bull;</span>
+            <span>PRECIOUS OLONADE</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Bar */}
       <div className="container mx-auto px-4 md:px-6 h-16 md:h-20 flex items-center justify-between">
         
-        {/* Logo / Brand */}
-        <NextLink href="/" className="group flex items-center gap-2.5 font-bold text-xl md:text-2xl tracking-tight text-foreground">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center text-white text-xs font-mono font-extrabold shadow-sm group-hover:scale-105 transition-transform duration-300">
-            PW
+        {/* Canonical Mark & Brand Title */}
+        <NextLink href="/" className="group flex items-center gap-3 focus:outline-none">
+          <div className="w-9 h-9 rounded-lg bg-foreground text-background font-mono font-extrabold text-xs flex items-center justify-center tracking-tighter group-hover:bg-primary group-hover:text-black transition-colors shadow-sm">
+            ✦PO
           </div>
-          <span className="font-sans">
-            Precious<span className="text-primary">Writes</span>
-          </span>
+          <div className="flex flex-col">
+            <span className="font-display text-lg md:text-xl font-bold tracking-tight text-foreground group-hover:text-primary transition-colors">
+              Precious<span className="text-primary font-mono font-normal">Writes</span>
+            </span>
+            <span className="font-mono text-[9px] uppercase tracking-widest text-foreground/50 hidden md:block">
+              Journal &bull; Tech &bull; Faith &bull; Cinema
+            </span>
+          </div>
         </NextLink>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex gap-1 items-center bg-muted/50 p-1 rounded-full border border-border/40 text-sm font-medium">
+        {/* Desktop Navigation Links */}
+        <nav className="hidden md:flex items-center gap-8 font-mono text-xs uppercase tracking-wider font-semibold">
           <NextLink 
             href="/" 
-            className="px-4 py-1.5 rounded-full hover:text-foreground text-foreground/70 hover:bg-background/60 transition-all duration-200"
+            className="hover:text-primary transition-colors py-1 relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-primary after:scale-x-0 hover:after:scale-x-100 after:transition-transform"
           >
-            Home
+            // 01. Home
           </NextLink>
           <NextLink 
             href="/blog" 
-            className="px-4 py-1.5 rounded-full hover:text-foreground text-foreground/70 hover:bg-background/60 transition-all duration-200"
+            className="hover:text-primary transition-colors py-1 relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-primary after:scale-x-0 hover:after:scale-x-100 after:transition-transform"
           >
-            Posts
+            // 02. Archive
           </NextLink>
           <NextLink 
             href="/about" 
-            className="px-4 py-1.5 rounded-full hover:text-foreground text-foreground/70 hover:bg-background/60 transition-all duration-200"
+            className="hover:text-primary transition-colors py-1 relative after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-primary after:scale-x-0 hover:after:scale-x-100 after:transition-transform"
           >
-            About
+            // 03. About
           </NextLink>
         </nav>
 
-        {/* Action Controls */}
+        {/* Header Actions */}
         <div className="flex items-center gap-2 md:gap-3">
-          {/* Quick Search Button */}
+          
+          {/* Quick Search */}
           <button 
-            className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-muted/60 hover:bg-muted text-foreground/60 hover:text-foreground border border-border/40 transition-all text-xs font-sans cursor-pointer" 
+            className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-card hover:bg-muted text-foreground/70 hover:text-foreground hairline-border transition-all text-xs font-mono cursor-pointer" 
             aria-label="Search"
             onClick={() => setIsSearchOpen(!isSearchOpen)}
           >
-            <Search size={15} />
-            <span className="hidden sm:inline font-medium">Search</span>
-            <kbd className="hidden sm:inline-flex items-center gap-0.5 px-1.5 py-0.5 text-[10px] font-mono bg-background/80 text-foreground/50 rounded border border-border/50">
+            <Search size={14} className="text-primary" />
+            <span className="hidden sm:inline">Search</span>
+            <kbd className="hidden sm:inline-flex items-center gap-0.5 px-1.5 py-0.5 text-[9px] font-mono bg-muted text-foreground/50 rounded border border-border">
               <Command size={9} />K
             </kbd>
           </button>
           
           <ThemeToggle />
 
-          {/* Hamburger Menu Toggle */}
+          {/* Mobile Hamburger */}
           <button 
-            className="md:hidden p-2 rounded-full hover:bg-muted transition-colors cursor-pointer text-foreground/80"
+            className="md:hidden p-2 rounded-lg bg-card hairline-border text-foreground/80 cursor-pointer"
             onClick={() => setIsOpen(!isOpen)}
             aria-label={isOpen ? "Close Menu" : "Open Menu"}
           >
-            {isOpen ? <X size={20} /> : <Menu size={20} />}
+            {isOpen ? <X size={18} /> : <Menu size={18} />}
           </button>
         </div>
       </div>
 
-      {/* Search Overlay */}
+      {/* Interactive Search Overlay Modal */}
       {isSearchOpen && (
         <div 
           ref={searchRef}
-          className="absolute left-0 right-0 top-full bg-card/95 backdrop-blur-2xl border-b border-border py-4 px-4 shadow-2xl z-40 animate-in slide-in-from-top-2 duration-200"
+          className="absolute left-0 right-0 top-full bg-card/95 backdrop-blur-2xl hairline-b py-6 px-4 shadow-2xl z-50 animate-in slide-in-from-top-2 duration-200"
         >
-          <div className="container mx-auto max-w-2xl relative">
-            <div className="flex items-center gap-3 bg-muted/40 border border-border/80 rounded-xl px-4 py-3 focus-within:border-primary/60 transition-colors">
+          <div className="container mx-auto max-w-2xl relative space-y-4">
+            <div className="flex items-center gap-3 bg-background hairline-border rounded-xl px-4 py-3 focus-within:border-primary transition-colors">
               <Search size={18} className="text-primary shrink-0" />
               <input
                 type="text"
-                placeholder="Search articles by title or topic..."
+                placeholder="Search by keyword, topic, or title..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full bg-transparent font-sans text-sm focus:outline-none placeholder-foreground/40 text-foreground"
@@ -160,18 +195,18 @@ export default function Header() {
               />
               <button 
                 onClick={() => { setIsSearchOpen(false); setSearchQuery(""); }}
-                className="p-1 rounded-md hover:bg-muted text-foreground/40 hover:text-foreground transition-colors"
+                className="p-1 rounded text-foreground/40 hover:text-foreground transition-colors"
               >
                 <X size={18} />
               </button>
             </div>
 
-            {/* Results Dropdown */}
+            {/* Dropdown Results */}
             {searchQuery.trim() && (
-              <div className="mt-3 bg-card border border-border rounded-xl shadow-xl overflow-hidden z-50">
+              <div className="bg-background hairline-border rounded-xl shadow-xl overflow-hidden">
                 {loading ? (
                   <div className="px-4 py-4 font-mono text-xs text-foreground/50 flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-primary animate-ping" /> Loading database...
+                    <span className="w-2 h-2 rounded-full bg-primary animate-ping" /> Querying database...
                   </div>
                 ) : filteredPosts.length === 0 ? (
                   <div className="px-4 py-6 text-center font-sans text-sm text-foreground/50">
@@ -187,10 +222,10 @@ export default function Header() {
                           className="flex items-center justify-between px-4 py-3.5 hover:bg-muted/60 transition-colors group"
                         >
                           <div>
-                            <span className="inline-block px-2 py-0.5 text-[10px] font-mono uppercase font-semibold text-primary bg-primary/10 rounded mb-1">
+                            <span className="inline-block px-2 py-0.5 text-[10px] font-mono uppercase font-bold text-primary bg-primary/10 rounded mb-1">
                               {post.category}
                             </span>
-                            <h4 className="font-sans text-sm font-semibold text-foreground group-hover:text-primary transition-colors">
+                            <h4 className="font-sans text-sm font-bold text-foreground group-hover:text-primary transition-colors">
                               {post.title}
                             </h4>
                           </div>
@@ -206,30 +241,30 @@ export default function Header() {
         </div>
       )}
 
-      {/* Mobile Menu Drawer */}
+      {/* Mobile Nav Drawer */}
       {isOpen && (
-        <div className="md:hidden border-t border-border/60 bg-background/95 backdrop-blur-xl py-4 px-4 animate-in slide-in-from-top-2 duration-200">
-          <nav className="flex flex-col gap-1 font-sans text-base">
+        <div className="md:hidden hairline-t bg-background/95 backdrop-blur-xl py-6 px-4 animate-in slide-in-from-top-2 duration-200">
+          <nav className="flex flex-col gap-3 font-mono text-sm font-semibold">
             <NextLink 
               href="/" 
               onClick={() => setIsOpen(false)}
-              className="px-4 py-2.5 rounded-lg hover:bg-muted text-foreground/80 font-medium transition-colors"
+              className="px-4 py-3 rounded-lg bg-card hairline-border hover:border-primary text-foreground"
             >
-              Home
+              // 01. Home
             </NextLink>
             <NextLink 
               href="/blog" 
               onClick={() => setIsOpen(false)}
-              className="px-4 py-2.5 rounded-lg hover:bg-muted text-foreground/80 font-medium transition-colors"
+              className="px-4 py-3 rounded-lg bg-card hairline-border hover:border-primary text-foreground"
             >
-              Posts
+              // 02. Archive
             </NextLink>
             <NextLink 
               href="/about" 
               onClick={() => setIsOpen(false)}
-              className="px-4 py-2.5 rounded-lg hover:bg-muted text-foreground/80 font-medium transition-colors"
+              className="px-4 py-3 rounded-lg bg-card hairline-border hover:border-primary text-foreground"
             >
-              About
+              // 03. About
             </NextLink>
           </nav>
         </div>
